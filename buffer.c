@@ -306,7 +306,7 @@ listbuffers(int f, int n)
 static struct buffer *
 makelist(void)
 {
-	int		w = ncol / 2;
+	size_t		w = ncol / 2;
 	struct buffer	*bp, *blp;
 	struct line	*lp;
 
@@ -458,7 +458,8 @@ int
 anycb(int f)
 {
 	struct buffer	*bp;
-	int		 s = FALSE, save = FALSE, save2 = FALSE, ret;
+	int		 s = FALSE, save = FALSE, save2 = FALSE;
+	size_t		 ret;
 	char		 pbuf[NFILEN + 11];
 
 	for (bp = bheadp; bp != NULL; bp = bp->b_bufp) {
