@@ -2,7 +2,7 @@ CC	 =	gcc
 
 LDFLAGS	+=	-lncurses -lssl -lcrypto
 CFLAGS	+=	-I. -Iopenbsd-compat/
-CFLAGS	+=	-Wall -Wpointer-arith
+CFLAGS	+=	-D_GNU_SOURCE -Wall -Wpointer-arith
 # (Common) compile-time options:
 #
 #	FKEYS		-- add support for function key sequences.
