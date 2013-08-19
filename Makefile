@@ -12,6 +12,10 @@ CFLAGS	+=	-Wall -Wpointer-arith
 #				note: XKEYS and bsmap mode do _not_ get along.
 #
 CFLAGS	+=	-DFKEYS -DREGEX -DXKEYS
+CFLAGS  +=	-Wstrict-prototypes -Wmissing-prototypes
+CFLAGS  +=	-Wmissing-declarations -Wshadow
+CFLAGS  +=	-Wpointer-arith -Wcast-qual
+CFLAGS  +=	-Wsign-compare
 
 PROG	 =	mg
 OBJS	 =	autoexec.o basic.o buffer.o cinfo.o dir.o display.o \
