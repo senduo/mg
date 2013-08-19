@@ -602,7 +602,17 @@ pwriteout(int fd, char **text, int *len)
 {
 	int w;
 
-	if (((w = send(fd, *text, *len, MSG_NOSIGNAL)) == -1)) {
+#ifdef __APPLE__
+	int o;
+
+	fcntl(fd, F_GETNOSIGPIPE, &o);
+	fcntl(fd, F_SETNOSIGPIPE, 1);
+	w = send(fd, *text, *len, 0);
+	fcntl(fd, F_SETNOSIGPIPE, o);
+#else
+	w = send(fd, *text, *len, MSG_NOSIGNAL);
+#endif
+	if (w == -1) {
 		switch(errno) {
 		case EPIPE:
 			*len = -1;
