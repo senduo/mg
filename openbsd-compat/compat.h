@@ -27,4 +27,11 @@ char *bdirname(const char *);
 #define FPARSELN_UNESCALL       0x0f
 char *fparseln(FILE *, size_t *, size_t *, const char[3], int);
 
+/*
+ * MAC OS X
+ */
+#ifdef __APPLE__
+#define LOGIN_NAME_MAX MAXLOGNAME
+#endif
+
 #endif /* __COMPAT_H__ */
