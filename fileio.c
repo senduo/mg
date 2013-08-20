@@ -5,6 +5,12 @@
 /*
  *	POSIX fileio.c
  */
+
+#ifndef __OpenBSD__
+#define _GNU_SOURCE
+#include <stdio.h>
+#endif /* __OpenBSD__ */
+
 #include "def.h"
 
 #include <sys/types.h>
@@ -17,11 +23,6 @@
 #include <limits.h>
 #include <dirent.h>
 #include <pwd.h>
-
-#ifndef __OpenBSD__
-#define _USE_GNU
-#include <stdio.h>
-#endif /* __OpenBSD__ */
 
 #include <string.h>
 #include <unistd.h>

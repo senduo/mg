@@ -92,7 +92,7 @@ do_makedir(void)
 
 	struct stat	 sb;
 	int		 finished, ishere;
-	mode_t		 dir_mode, mode, oumask;
+	mode_t		 dir_mode, mymode, oumask;
 	char		 bufc[NFILEN];
 	char		*slash,	*path;
 
@@ -110,8 +110,8 @@ do_makedir(void)
 	slash = path;
 
 	oumask = umask(0);
-	mode = 0777 & ~oumask;
-	dir_mode = mode | S_IWUSR | S_IXUSR;
+	mymode = 0777 & ~oumask;
+	dir_mode = mymode | S_IWUSR | S_IXUSR;
 
 	for (;;) {
 		slash += strspn(slash, "/");
@@ -130,8 +130,8 @@ do_makedir(void)
 			continue;
 		}
 
-		if (mkdir(path, finished ? mode : dir_mode) == 0) {
-			if (mode > 0777 && chmod(path, mode) < 0) {
+		if (mkdir(path, finished ? mymode : dir_mode) == 0) {
+			if (mymode > 0777 && chmod(path, mymode) < 0) {
 				umask(oumask);
 				return (ABORT);
 			}

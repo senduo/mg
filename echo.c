@@ -186,7 +186,7 @@ veread(const char *fp, char *buf, size_t nbuf, int flag, va_list ap)
 		if (dynbuf) {
 			if ((buf = malloc(maclcur->l_used + 1)) == NULL)
 				return (NULL);
-		} else if (maclcur->l_used >= nbuf)
+		} else if (maclcur->l_used >= (int)nbuf)
 			return (NULL);
 		bcopy(maclcur->l_text, buf, maclcur->l_used);
 		buf[maclcur->l_used] = '\0';
@@ -306,7 +306,7 @@ veread(const char *fp, char *buf, size_t nbuf, int flag, va_list ap)
 			i = 0;
 			while ((y = kremove(i++)) >= 0 && y != '\n') {
 				int t;
-				if (dynbuf && epos + 1 >= nbuf) {
+				if (dynbuf && epos + 1 >= (int)nbuf) {
 					void *newp;
 					size_t newsize = epos + epos + 16;
 					if ((newp = realloc(buf, newsize))
@@ -315,7 +315,7 @@ veread(const char *fp, char *buf, size_t nbuf, int flag, va_list ap)
 					buf = newp;
 					nbuf = newsize;
 				}
-				if (!dynbuf && epos + 1 >= nbuf) {
+				if (!dynbuf && epos + 1 >= (int)nbuf) {
 					ewprintf("Line too long");
 					return (emptyval);
 				}
@@ -462,7 +462,7 @@ veread(const char *fp, char *buf, size_t nbuf, int flag, va_list ap)
 			c = getkey(FALSE);
 			/* FALLTHROUGH */
 		default:
-			if (dynbuf && epos + 1 >= nbuf) {
+			if (dynbuf && epos + 1 >= (int)nbuf) {
 				void *newp;
 				size_t newsize = epos + epos + 16;
 				if ((newp = realloc(buf, newsize)) == NULL)
@@ -470,7 +470,7 @@ veread(const char *fp, char *buf, size_t nbuf, int flag, va_list ap)
 				buf = newp;
 				nbuf = newsize;
 			}
-			if (!dynbuf && epos + 1 >= nbuf) {
+			if (!dynbuf && epos + 1 >= (int)nbuf) {
 				ewprintf("Line too long");
 				return (emptyval);
 			}
@@ -571,7 +571,7 @@ complt(int flags, int c, char *buf, size_t nbuf, int cpos, int *nx)
 		 */
 		if (nxtra < 0 && nhits > 1 && c == ' ')
 			nxtra = 1; /* ??? */
-		for (i = 0; i < nxtra && cpos < nbuf; ++i) {
+		for (i = 0; i < nxtra && cpos < (int)nbuf; ++i) {
 			buf[cpos] = lh2->l_name[cpos];
 			eputc(buf[cpos++]);
 		}

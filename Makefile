@@ -3,6 +3,10 @@ CC	 =	gcc
 LDFLAGS	+=	-lncurses -lssl -lcrypto
 CFLAGS	+=	-I. -Iopenbsd-compat/
 CFLAGS	+=	-Wall -Wpointer-arith
+CFLAGS  +=	-Wstrict-prototypes -Wmissing-prototypes
+CFLAGS  +=	-Wmissing-declarations -Wshadow
+CFLAGS  +=	-Wpointer-arith -Wcast-qual
+CFLAGS  +=	-Wsign-compare
 # (Common) compile-time options:
 #
 #	FKEYS		-- add support for function key sequences.
@@ -35,7 +39,7 @@ all: ${PROG}
 	${CC} ${CFLAGS} $< -c -o $@;
 
 ${PROG}: ${OBJS}
-	${CC} ${LDFLAGS} ${CFLAGS} ${OBJS} -o $@;
+	${CC} ${CFLAGS} ${OBJS} ${LDFLAGS} -o $@;
 
 install:
 	install -o root -g bin -m 555 -s -S -d mg ${DESTDIR}/usr/bin/mg;
