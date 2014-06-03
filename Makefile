@@ -7,6 +7,9 @@ CFLAGS  +=	-Wsign-compare
 
 LDFLAGS	+=	-lncurses -lutil
 
+PREFIX	?=	/usr/local
+BINDIR	 =	${PREFIX}/bin
+
 # (Common) compile-time options:
 #
 #	FKEYS		-- add support for function key sequences.
